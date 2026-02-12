@@ -28,7 +28,7 @@ const transporter = nodemailer.createTransport({
 
 app.post('/send-email', (req, res) => {
   const { name, email, studentNumber, course, genre, reason, type } = req.body;
-  console.log(`📨 Attempting to send email: ${type} for ${name}`);
+  console.log(`📨 Sending email: ${type} for ${name}`);
 
   const mailOptions = {
     from: 'lethabozwane04@gmail.com',
@@ -48,49 +48,59 @@ app.post('/send-email', (req, res) => {
   });
 });
 
-// --- AI SETUP ---
-let genAI;
-try {
-    genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-} catch (e) {
-    console.error("❌ Error initializing Gemini:", e);
+// --- SMART AI SETUP ---
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+// Updated list based on your debug output
+const MODEL_FALLBACK_LIST = [
+  "gemini-2.0-flash-lite",       // Try Lite first (often has separate quota)
+  "gemini-2.0-flash",            // Standard 2.0
+  "gemini-flash-latest",         // Alias for the newest Flash
+  "gemini-1.5-flash",            // Standard 1.5
+  "gemini-pro"                   // Legacy
+];
+
+async function generateWithFallback(userMessage) {
+  let lastError = null;
+
+  for (const modelName of MODEL_FALLBACK_LIST) {
+    try {
+      console.log(`🔄 Trying model: ${modelName}...`);
+      const model = genAI.getGenerativeModel({ model: modelName });
+      
+      const prompt = `You are a helpful study assistant. Student asks: "${userMessage}". Give a short, encouraging answer.`;
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      
+      console.log(`✅ Success! Connected with ${modelName}`);
+      return response.text();
+    } catch (error) {
+      // Improved error logging to see the REAL reason
+      let errorMessage = error.message || JSON.stringify(error);
+      if (errorMessage.includes("404")) errorMessage = "404 Not Found";
+      if (errorMessage.includes("429")) errorMessage = "429 Quota Exceeded";
+      
+      console.warn(`⚠️ Failed with ${modelName}: ${errorMessage}`);
+      lastError = error;
+    }
+  }
+  throw lastError;
 }
 
 app.post('/chat', async (req, res) => {
-    console.log("🤖 AI Request received:", req.body.message);
-    
+    console.log("🤖 AI Request:", req.body.message);
     try {
-        if (!process.env.GEMINI_API_KEY) {
-            throw new Error("GEMINI_API_KEY is missing in .env file");
-        }
-
-        // UPDATED: Using a model from your available list
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
-        
-        const prompt = `You are a helpful study assistant for university students. 
-        The student asks: "${req.body.message}". 
-        Provide a concise, helpful, and encouraging academic answer.`;
-
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = response.text();
-        
-        console.log("✅ AI Response generated successfully");
-        res.json({ reply: text });
-
+        const replyText = await generateWithFallback(req.body.message);
+        res.json({ reply: replyText });
     } catch (error) {
-        console.error("---------------- AI ERROR DETAILS ----------------");
-        console.error("Message:", error.message);
-        if (error.response) {
-            console.error("Google API Error:", JSON.stringify(error.response, null, 2));
-        }
-        console.error("--------------------------------------------------");
-        
-        res.status(500).json({ reply: "Sorry, I'm having trouble thinking right now. Please try again." });
+        console.error("❌ ALL MODELS FAILED.");
+        res.status(500).json({ 
+            reply: "I'm having trouble connecting to my brain right now. Please try again later." 
+        });
     }
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

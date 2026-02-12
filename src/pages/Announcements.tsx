@@ -4,6 +4,7 @@ import { Megaphone, Sparkles, Send, Bot, User } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { API_URL } from "@/config";
 
 const studyTips = [
   "Break your study sessions into 25-minute focus intervals (Pomodoro technique).",
@@ -36,7 +37,7 @@ const Announcements = () => {
     setLoading(true);
 
     try {
-        const response = await fetch('http://localhost:5000/chat', {
+        const response = await fetch(`${API_URL}/chat`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: userMessage })

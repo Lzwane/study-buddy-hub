@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { API_URL } from "@/config";
 
 const BookClub = () => {
   const [form, setForm] = useState({ name: "", email: "", studentNumber: "", genre: "", reason: "" });
@@ -14,8 +15,10 @@ const BookClub = () => {
     e.preventDefault();
     setLoading(true);
 
+    
+
     try {
-      const response = await fetch('http://localhost:5000/send-email', {
+      const response = await fetch(`${API_URL}/send-email`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, type: 'Book Club Signup' }),
