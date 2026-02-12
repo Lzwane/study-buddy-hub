@@ -4,5 +4,5 @@ const isProduction = import.meta.env.PROD;
 
 // WE WILL PASTE THE RENDER URL HERE LATER
 export const API_URL = isProduction 
-  ? "https://your-backend-app-name.onrender.com" 
+  ? "https://study-buddy-backend-evqe.onrender.com" 
   : "http://localhost:5000";
