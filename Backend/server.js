@@ -87,6 +87,11 @@ async function generateWithFallback(userMessage) {
   throw lastError;
 }
 
+// --- ROOT ROUTE (To test if server is running) ---
+app.get('/', (req, res) => {
+  res.send('✅ Study Buddy Backend is Running! (Use the frontend to interact)');
+});
+
 app.post('/chat', async (req, res) => {
     console.log("🤖 AI Request:", req.body.message);
     try {
