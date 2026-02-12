@@ -1,22 +1,41 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { BookOpen, Users, PenTool } from "lucide-react";
+import { BookOpen, Users, PenTool, User, Mail, Hash, Book, MessageSquare } from "lucide-react";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 
 const BookClub = () => {
-  const [form, setForm] = useState({ name: "", email: "", studentNumber: "", reason: "" });
+  const [form, setForm] = useState({ name: "", email: "", studentNumber: "", genre: "", reason: "" });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Thank you for signing up for the Kutlwano Book Club!");
-    setForm({ name: "", email: "", studentNumber: "", reason: "" });
+    setLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:5000/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, type: 'Book Club Signup' }),
+      });
+
+      if (response.ok) {
+        toast.success("Welcome to the club! We've received your details.");
+        setForm({ name: "", email: "", studentNumber: "", genre: "", reason: "" });
+      } else {
+        toast.error("Failed to sign up.");
+      }
+    } catch (error) {
+      toast.error("Error connecting to server.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-slate-50">
       <Navbar />
 
       {/* Hero */}
@@ -28,81 +47,116 @@ const BookClub = () => {
               Kutlwano Book Club
             </h1>
           </div>
-          <p className="text-white/90 max-w-2xl mx-auto text-lg">
-            In collaboration with the SMU Library
+          <p className="text-white/90 max-w-2xl mx-auto text-lg font-medium">
+            Where stories come alive and minds connect.
           </p>
         </div>
       </section>
 
-      {/* Introduction */}
       <section className="py-16">
-        <div className="container max-w-3xl">
-          <h2 className="text-2xl font-bold font-heading mb-4">About the Book Club</h2>
-          <p className="text-muted-foreground leading-relaxed mb-4">
-            The Kutlwano Book Club is a proud initiative of Study Buddy SMU, run in collaboration with the SMU Library. Our mission is to cultivate a vibrant community of readers, writers, and thinkers among students. Through curated reading lists, creative writing workshops, and lively discussion forums, we aim to develop critical thinking, strengthen literacy, and foster a love for learning beyond the classroom.
-          </p>
-          <p className="text-muted-foreground leading-relaxed mb-6">
-            Whether you're a passionate reader, an aspiring writer, or simply curious about new ideas — Kutlwano Book Club is your space to grow, connect, and explore the world of literature.
-          </p>
-
-          <div className="grid sm:grid-cols-3 gap-4 mb-12">
-            {[
-              { icon: BookOpen, title: "Reading Sessions", desc: "Monthly book discussions on curated novels and non-fiction" },
-              { icon: PenTool, title: "Creative Writing", desc: "Workshops and forums for aspiring student writers" },
-              { icon: Users, title: "Community", desc: "A supportive network of like-minded student readers" },
-            ].map((item) => (
-              <div key={item.title} className="p-5 rounded-2xl border bg-card text-center">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-primary mx-auto mb-3">
-                  <item.icon className="h-5 w-5" />
+        <div className="container max-w-4xl">
+          
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            
+            {/* Left Content */}
+            <div className="space-y-6">
+                <h2 className="text-2xl font-bold font-heading text-slate-800">More Than Just Books</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                    Kutlwano Book Club is a warm and welcoming space where university students come together through a shared love for reading, creative writing, and meaningful conversations. It invites every voice, encouraging curiosity, self-expression, and thoughtful engagement with ideas and stories.
+                </p>
+                
+                <div className="space-y-4 mt-6">
+                    {[
+                        { icon: BookOpen, title: "Reading Sessions", desc: "Dive into curated novels." },
+                        { icon: PenTool, title: "Creative Writing", desc: "Unleash your inner author." },
+                        { icon: Users, title: "Community", desc: "Connect with fellow bookworms." },
+                    ].map((item) => (
+                        <div key={item.title} className="flex items-start gap-4 p-4 rounded-xl bg-white border shadow-sm hover:shadow-md transition-all">
+                            <div className="p-2 bg-blue-50 rounded-lg text-blue-600">
+                                <item.icon className="h-5 w-5" />
+                            </div>
+                            <div>
+                                <h3 className="font-bold text-sm">{item.title}</h3>
+                                <p className="text-xs text-muted-foreground">{item.desc}</p>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-                <h3 className="font-bold font-heading text-sm mb-1">{item.title}</h3>
-                <p className="text-xs text-muted-foreground">{item.desc}</p>
-              </div>
-            ))}
-          </div>
+            </div>
 
-          {/* Signup Form */}
-          <div className="bg-muted/40 border rounded-2xl p-6 md:p-8">
-            <h2 className="text-2xl font-bold font-heading mb-2">Join the Book Club</h2>
-            <p className="text-muted-foreground mb-6">Sign up below to become a member of the Kutlwano Book Club.</p>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <Input
-                  placeholder="Full Name"
-                  required
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="rounded-xl h-11"
-                />
-                <Input
-                  placeholder="Email Address"
-                  type="email"
-                  required
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="rounded-xl h-11"
-                />
-              </div>
-              <Input
-                placeholder="Student Number"
-                required
-                value={form.studentNumber}
-                onChange={(e) => setForm({ ...form, studentNumber: e.target.value })}
-                className="rounded-xl h-11"
-              />
-              <Textarea
-                placeholder="Why do you want to join the Book Club? (optional)"
-                value={form.reason}
-                onChange={(e) => setForm({ ...form, reason: e.target.value })}
-                className="rounded-xl min-h-[100px]"
-              />
-              <button
-                type="submit"
-                className="w-full gradient-primary text-white font-semibold py-3 rounded-xl hover:opacity-90 transition-opacity"
-              >
-                Sign Up
-              </button>
-            </form>
+            {/* Right Form */}
+            <div className="bg-white p-8 rounded-3xl shadow-xl border border-slate-100 relative">
+                <div className="absolute top-0 right-0 p-3 bg-yellow-400 rounded-bl-2xl rounded-tr-2xl text-xs font-bold text-yellow-900 shadow-sm">
+                    OPEN FOR 2026
+                </div>
+                <h2 className="text-2xl font-bold font-heading mb-6">Member Registration</h2>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="relative">
+                        <User className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
+                        <Input
+                            placeholder="Full Name"
+                            className="pl-10 h-11 rounded-xl bg-slate-50 border-slate-200"
+                            required
+                            value={form.name}
+                            onChange={(e) => setForm({ ...form, name: e.target.value })}
+                        />
+                    </div>
+                    
+                    <div className="relative">
+                        <Mail className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
+                        <Input
+                            placeholder="Email Address"
+                            type="email"
+                            className="pl-10 h-11 rounded-xl bg-slate-50 border-slate-200"
+                            required
+                            value={form.email}
+                            onChange={(e) => setForm({ ...form, email: e.target.value })}
+                        />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="relative">
+                            <Hash className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
+                            <Input
+                                placeholder="Student No."
+                                className="pl-10 h-11 rounded-xl bg-slate-50 border-slate-200"
+                                required
+                                value={form.studentNumber}
+                                onChange={(e) => setForm({ ...form, studentNumber: e.target.value })}
+                            />
+                        </div>
+                        <div className="relative">
+                            <Book className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
+                            <Input
+                                placeholder="Fav Genre"
+                                className="pl-10 h-11 rounded-xl bg-slate-50 border-slate-200"
+                                required
+                                value={form.genre}
+                                onChange={(e) => setForm({ ...form, genre: e.target.value })}
+                            />
+                        </div>
+                    </div>
+                    
+                    <div className="relative">
+                        <MessageSquare className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
+                        <Textarea
+                            placeholder="Why do you want to join? (Optional)"
+                            value={form.reason}
+                            onChange={(e) => setForm({ ...form, reason: e.target.value })}
+                            className="pl-10 min-h-[100px] rounded-xl bg-slate-50 border-slate-200 resize-none"
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className="w-full bg-slate-900 text-white font-semibold py-3 rounded-xl hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl disabled:opacity-70"
+                    >
+                        {loading ? "Registering..." : "Join the Club"}
+                    </button>
+                </form>
+            </div>
+
           </div>
         </div>
       </section>

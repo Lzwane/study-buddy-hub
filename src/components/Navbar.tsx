@@ -1,12 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
-import { BookOpen, Users, GraduationCap, Menu, X } from "lucide-react";
+import { BookOpen, Users, GraduationCap, Menu, X, Megaphone } from "lucide-react";
 import { useState } from "react";
 
 const navItems = [
   { label: "Home", path: "/" },
-  { label: "Kutlwano Book Club", path: "/book-club", icon: BookOpen },
   { label: "Executive Team", path: "/executive-team", icon: Users },
-  { label: "Tutors", path: "/tutors", icon: GraduationCap },
+  { label: "Kutlwano Book Club", path: "/book-club", icon: BookOpen },
+  { label: "Announcements", path: "/announcements", icon: Megaphone },
+  { label: "Tutoring", path: "/tutoring", icon: GraduationCap },
 ];
 
 const Navbar = () => {
@@ -17,8 +18,9 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg gradient-primary">
-            <BookOpen className="h-5 w-5 text-primary-foreground" />
+          {/* Updated Logo Image */}
+          <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-lg">
+            <img src="/LOGO.jpeg" alt="Logo" className="h-full w-full object-cover" />
           </div>
           <span className="text-xl font-bold font-heading gradient-text">STUDY BUDDY</span>
         </Link>

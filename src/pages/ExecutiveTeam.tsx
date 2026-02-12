@@ -3,14 +3,17 @@ import Footer from "@/components/Footer";
 import { Users } from "lucide-react";
 
 const executives = [
-  { name: "Thabo Molefe", position: "Chairperson", image: "" },
-  { name: "Naledi Khumalo", position: "Vice Chairperson", image: "" },
-  { name: "Sipho Ndlovu", position: "Secretary", image: "" },
-  { name: "Lerato Maseko", position: "Treasurer", image: "" },
-  { name: "Mpho Dlamini", position: "Head of Tutoring", image: "" },
-  { name: "Zanele Nkosi", position: "Head of Book Club", image: "" },
-  { name: "Kabelo Mthembu", position: "Marketing & Communications", image: "" },
-  { name: "Amahle Zulu", position: "Events Coordinator", image: "" },
+  { name: "Andiswa Mabuya", position: "Chairperson" },
+  { name: "TBA", position: "Deputy Chairperson" },
+  { name: "Kurhula Mthombeni", position: "Secretary" },
+  { name: "Sfisokuhle Magagula", position: "Deputy Secretary" },
+  { name: "Unathi Radebe", position: "Treasurer" },
+  { name: "Musa Mabaso", position: "Logistics & Library Liaison" },
+  { name: "Lusanda Mbalati", position: "Academic Officer" },
+  { name: "Zethembe Phenyane", position: "Head School Coordinator" },
+  { name: "Musa Mulaudzi", position: "School Rep: Medicine" },
+  { name: "Perseverence Mathebula", position: "School Rep: Health Care" },
+  { name: "Tefo Mokwatedi", position: "School Rep: Science & Tech" },
 ];
 
 const ExecutiveTeam = () => {
@@ -34,14 +37,14 @@ const ExecutiveTeam = () => {
 
       <section className="py-16">
         <div className="container">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {executives.map((exec) => (
               <div
                 key={exec.name}
                 className="bg-card border rounded-2xl p-6 text-center hover:shadow-lg transition-shadow"
               >
                 <div className="w-20 h-20 rounded-full gradient-primary mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold font-heading">
-                  {exec.name.split(" ").map(n => n[0]).join("")}
+                  {exec.name === "TBA" ? "?" : exec.name.split(" ").map(n => n[0]).join("")}
                 </div>
                 <h3 className="font-bold font-heading">{exec.name}</h3>
                 <p className="text-sm text-muted-foreground mt-1">{exec.position}</p>
