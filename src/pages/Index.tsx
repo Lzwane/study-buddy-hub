@@ -83,26 +83,27 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Cute Disclaimer Section */}
-      <section className="py-12 bg-white">
+      {/* Blue & Slate Theme Disclaimer Section */}
+      <section className="py-12 bg-slate-50">
         <div className="container max-w-4xl">
-          <div className="bg-pink-50/50 border border-pink-100 rounded-3xl p-8 md:p-10 text-center relative overflow-hidden shadow-sm">
+          <div className="bg-blue-50/60 border border-blue-100 rounded-3xl p-8 md:p-10 text-center relative overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+            {/* Decorative background icons */}
             <div className="absolute -top-10 -right-10 opacity-20 pointer-events-none">
-              <Heart className="w-40 h-40 text-pink-300" />
+              <ShieldAlert className="w-40 h-40 text-blue-300" />
             </div>
             <div className="absolute -bottom-10 -left-10 opacity-20 pointer-events-none">
-              <ShieldAlert className="w-32 h-32 text-pink-300" />
+              <Heart className="w-32 h-32 text-blue-300" />
             </div>
             
             <div className="relative z-10">
-              <h3 className="text-2xl font-bold text-pink-800 mb-4 flex items-center justify-center gap-2">
-                <Heart className="w-6 h-6 fill-pink-500 text-pink-500" />
+              <h3 className="text-2xl font-bold text-slate-800 mb-4 flex items-center justify-center gap-2">
+                <ShieldAlert className="w-6 h-6 text-blue-500" />
                 A Little Disclaimer
               </h3>
-              <p className="text-pink-900/80 leading-relaxed text-md max-w-2xl mx-auto font-medium">
+              <p className="text-slate-600 leading-relaxed text-md max-w-2xl mx-auto font-medium">
                 Study Buddy is a student-driven initiative lovingly created to make sharing and finding Sefako Makgatho Health Sciences University (SMU) study materials a breeze! 
                 <br/><br/>
-                Please keep in mind that <strong>we do not own, create, or hold any copyright</strong> to the notes, past papers, textbooks, or slides linked on this platform. All educational materials belong strictly to their respective authors, lecturers, and the university. We are simply here to help organize them so we can all study a little smarter. Share responsibly, ace those exams, and be kind! 💖
+                Please keep in mind that <strong>we do not own, create, or hold any copyright</strong> to the notes, past papers, textbooks, or slides linked on this platform. All educational materials belong strictly to their respective authors, lecturers, and the university. We are simply here to help organize them so we can all study a little smarter. Share responsibly, ace those exams, and be kind! 💙
               </p>
             </div>
           </div>
