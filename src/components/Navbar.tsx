@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { BookOpen, Users, GraduationCap, Menu, X, Megaphone } from "lucide-react";
+import { BookOpen, Users, GraduationCap, Menu, X, Megaphone, UserPlus } from "lucide-react"; // <-- Added UserPlus
 import { useState } from "react";
 
 const navItems = [
@@ -7,8 +7,10 @@ const navItems = [
   { label: "Executive Team", path: "/executive-team", icon: Users },
   { label: "Kutlwano Book Club", path: "/book-club", icon: BookOpen },
   { label: "Announcements", path: "/announcements", icon: Megaphone },
-  { label: "Tutoring", path: "/tutoring", icon: GraduationCap },
+  { label: "Find a Tutor", path: "/tutoring", icon: GraduationCap },
+  { label: "Find a Study Buddy", path: "/study-buddy", icon: UserPlus }, // <-- Add this item
 ];
+
 
 const Navbar = () => {
   const location = useLocation();

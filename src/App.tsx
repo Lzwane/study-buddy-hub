@@ -6,8 +6,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import BookClub from "./pages/BookClub";
 import ExecutiveTeam from "./pages/ExecutiveTeam";
-import Tutors from "./pages/Tutors"; // This file serves the /tutoring route
+import Tutors from "./pages/Tutors"; 
 import Announcements from "./pages/Announcements";
+import StudyBuddy from "./pages/StudyBuddy";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/executive-team" element={<ExecutiveTeam />} />
           <Route path="/tutoring" element={<Tutors />} />
           <Route path="/announcements" element={<Announcements />} />
+          <Route path="/study-buddy" element={<StudyBuddy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

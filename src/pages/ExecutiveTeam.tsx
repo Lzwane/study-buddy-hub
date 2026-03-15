@@ -4,11 +4,11 @@ import { Users } from "lucide-react";
 
 const executives = [
   { name: "Andiswa Mabuya", position: "Chairperson" },
-  { name: "TBA", position: "Deputy Chairperson" },
+  { name: "Musa Mabaso", position: "Deputy Chairperson" },
   { name: "Kurhula Mthombeni", position: "Secretary" },
   { name: "Sfisokuhle Magagula", position: "Deputy Secretary" },
   { name: "Unathi Radebe", position: "Treasurer" },
-  { name: "Musa Mabaso", position: "Logistics & Library Liaison" },
+  { name: "TBA", position: "Logistics & Library Liaison" },
   { name: "Lusanda Mbalati", position: "Academic Officer" },
   { name: "Zethembe Phenyane", position: "Head School Coordinator" },
   { name: "Musa Mulaudzi", position: "School Rep: Medicine" },
@@ -40,7 +40,7 @@ const ExecutiveTeam = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {executives.map((exec) => (
               <div
-                key={exec.name}
+                key={exec.position} // Switched to position as key in case you add more TBAs later!
                 className="bg-card border rounded-2xl p-6 text-center hover:shadow-lg transition-shadow"
               >
                 <div className="w-20 h-20 rounded-full gradient-primary mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold font-heading">

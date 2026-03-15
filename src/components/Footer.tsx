@@ -18,7 +18,8 @@ const Footer = () => (
           <Link to="/executive-team" className="hover:text-foreground transition-colors">Executive Team</Link>
           <Link to="/book-club" className="hover:text-foreground transition-colors">Kutlwano Book Club</Link>
           <Link to="/announcements" className="hover:text-foreground transition-colors">Announcements</Link>
-          <Link to="/tutoring" className="hover:text-foreground transition-colors">Tutoring</Link>
+          <Link to="/tutoring" className="hover:text-foreground transition-colors">Find a Tutor</Link>
+          <Link to="/study-buddy" className="hover:text-foreground transition-colors">Find a Study Buddy</Link>
         </div>
         
         <p className="text-sm text-muted-foreground">

@@ -1,57 +1,22 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ChevronDown, FolderOpen } from "lucide-react";
+import { ChevronDown, FolderOpen, Heart, ShieldAlert } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuPortal,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const schoolsData = [
-  {
-    name: "School of Science & Technology",
-    courses: [
-      { name: "BSc 1", link: "https://drive.google.com/drive/folders/1U5V3peLt_kcCpZyc7QKR-xFCibUl6h8g?usp=drive_link" },
-      { name: "BSc ECP 1", link: "#" },
-      { name: "BSc ECP 2", link: "#" },
-      { name: "BSc 2 / BSc ECP 3", link: "#" },
-      { name: "BSc 3 / BSc ECP 4", link: "#" },
-    ]
-  },
-  {
-    name: "School of Medicine",
-    courses: [
-      { name: "Radiology 1", link: "#" }, { name: "Radiology 2", link: "#" }, { name: "Radiology 3", link: "#" }, { name: "Radiology 4", link: "#" },
-      { name: "MBChB 1", link: "#" }, { name: "MBChB ECP 1", link: "#" }, { name: "MBChB ECP 2", link: "#" },
-      { name: "MBChB 2 / ECP 3", link: "#" }, { name: "MBChB 3 / ECP 4", link: "#" }, { name: "MBChB 6 / ECP 7", link: "#" },
-    ]
-  },
-  {
-    name: "School of Pharmacy",
-    courses: Array.from({ length: 5 }, (_, i) => ({ name: `Pharmacy ${i + 1}`, link: "#" }))
-  },
-  {
-    name: "School of Dentistry",
-    courses: [
-        ...Array.from({ length: 3 }, (_, i) => ({ name: `OH ${i + 1}`, link: "#" })),
-        ...Array.from({ length: 4 }, (_, i) => ({ name: `BDT ${i + 1}`, link: "#" })),
-        ...Array.from({ length: 6 }, (_, i) => ({ name: `BDS ${i + 1}`, link: "#" })),
-    ]
-  },
-  {
-    name: "School of Health Care Sciences",
-    courses: [
-        {name: "OT (1-4)", link: "#"}, {name: "Diet (1-4)", link: "#"}, 
-        {name: "Nursing (1-4)", link: "#"}, {name: "Physio (1-4)", link: "#"},
-        {name: "Speech (1-4)", link: "#"}, {name: "Audiology (1-4)", link: "#"}
-    ]
-  }
+const resourcesData = [
+  { name: "MBChB", link: "https://drive.google.com/drive/folders/1iX_TdhbW-nbhjw_ZgJDW6eNRKxYniuz1?usp=drive_link" },
+  { name: "Bachelor of Science", link: "https://drive.google.com/drive/folders/1piwQRSm7GYppj8qpfccmhYKCYzqvQbGV?usp=drive_link" },
+  { name: "Bachelor of Science ECP 1 - 2", link: "https://drive.google.com/drive/folders/1hOQ3Ue4-tgfJFE0V6bQi99MMclrURlGT?usp=drive_link" },
+  { name: "BSc Dietetics", link: "https://drive.google.com/drive/folders/1ppz8BHHsphtH0tkTRsOrmtQQz35BkYP-?usp=drive_link" },
+  { name: "Bachelor of Nursing", link: "https://drive.google.com/drive/folders/1_nWDD039UDpUAgcNRqxOgz8CPCumpbZO?usp=drive_link" },
+  { name: "Bachelor of Occupational Therapy", link: "https://drive.google.com/drive/folders/1WxQtqOvaDCEBoaN4ArUBetoasdQ3aVuS?usp=drive_link" },
+  { name: "Bachelor of Science in Physiotherapy", link: "https://drive.google.com/drive/folders/171GU_0lyxGigp68K6EvXFX0LnZ8VCTeS?usp=drive_link" }
 ];
 
 const Index = () => {
@@ -59,7 +24,6 @@ const Index = () => {
     <div className="flex flex-col min-h-screen bg-background">
       <Navbar />
 
-      {/* Hero */}
       <section className="relative gradient-primary py-24 md:py-32 overflow-hidden flex-1 flex items-center">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 w-72 h-72 bg-white rounded-full blur-3xl animate-pulse" />
@@ -68,7 +32,6 @@ const Index = () => {
         
         <div className="container relative z-10 text-center">
           <div className="flex items-center justify-center gap-4 mb-6">
-            {/* Replaced Icon with Logo Image */}
             <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white/20 backdrop-blur shadow-xl overflow-hidden">
                <img src="/LOGO.jpeg" alt="Logo" className="h-full w-full object-cover" />
             </div>
@@ -82,8 +45,6 @@ const Index = () => {
           </p>
           
           <div className="flex flex-wrap justify-center gap-4">
-            
-            {/* Dropdown for Resources */}
             <DropdownMenu>
               <DropdownMenuTrigger className="outline-none">
                 <div className="px-8 py-4 rounded-xl bg-white text-primary font-bold shadow-lg hover:bg-white/90 hover:scale-105 transition-all flex items-center gap-2 cursor-pointer">
@@ -92,29 +53,13 @@ const Index = () => {
                   <ChevronDown className="w-4 h-4 opacity-50" />
                 </div>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-64 p-2 rounded-xl shadow-xl border-none animate-in fade-in zoom-in-95 duration-200">
-                {schoolsData.map((school) => (
-                  <DropdownMenuSub key={school.name}>
-                    <DropdownMenuSubTrigger className="rounded-lg py-3 cursor-pointer">
-                      <span>{school.name}</span>
-                    </DropdownMenuSubTrigger>
-                    <DropdownMenuPortal>
-                      <DropdownMenuSubContent className="max-h-[300px] overflow-y-auto p-1 rounded-xl shadow-xl">
-                        {school.courses.map((course) => (
-                          <DropdownMenuItem key={course.name} asChild>
-                            <a 
-                              href={course.link} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="cursor-pointer py-2 rounded-lg"
-                            >
-                              {course.name}
-                            </a>
-                          </DropdownMenuItem>
-                        ))}
-                      </DropdownMenuSubContent>
-                    </DropdownMenuPortal>
-                  </DropdownMenuSub>
+              <DropdownMenuContent className="w-80 p-2 rounded-xl shadow-xl border-none animate-in fade-in zoom-in-95 duration-200">
+                {resourcesData.map((course) => (
+                  <DropdownMenuItem key={course.name} asChild>
+                    <a href={course.link} target="_blank" rel="noopener noreferrer" className="cursor-pointer py-3 px-4 rounded-lg font-medium hover:bg-slate-50 transition-colors w-full flex items-center">
+                      {course.name}
+                    </a>
+                  </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
@@ -126,7 +71,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* About */}
       <section className="py-20 bg-muted/30">
         <div className="container max-w-4xl text-center">
           <h2 className="text-3xl font-bold font-heading mb-6 gradient-text">About Study Buddy</h2>
@@ -136,6 +80,32 @@ const Index = () => {
           <p className="text-muted-foreground leading-relaxed text-lg">
             In collaboration with the SMU Library, Study Buddy hosts the Kutlwano Book Club promoting reading and intellectual engagement, organises study drives with exam preparation strategies, and food drives during peak academic periods to support student wellbeing.
           </p>
+        </div>
+      </section>
+
+      {/* Cute Disclaimer Section */}
+      <section className="py-12 bg-white">
+        <div className="container max-w-4xl">
+          <div className="bg-pink-50/50 border border-pink-100 rounded-3xl p-8 md:p-10 text-center relative overflow-hidden shadow-sm">
+            <div className="absolute -top-10 -right-10 opacity-20 pointer-events-none">
+              <Heart className="w-40 h-40 text-pink-300" />
+            </div>
+            <div className="absolute -bottom-10 -left-10 opacity-20 pointer-events-none">
+              <ShieldAlert className="w-32 h-32 text-pink-300" />
+            </div>
+            
+            <div className="relative z-10">
+              <h3 className="text-2xl font-bold text-pink-800 mb-4 flex items-center justify-center gap-2">
+                <Heart className="w-6 h-6 fill-pink-500 text-pink-500" />
+                A Little Disclaimer
+              </h3>
+              <p className="text-pink-900/80 leading-relaxed text-md max-w-2xl mx-auto font-medium">
+                Study Buddy is a student-driven initiative lovingly created to make sharing and finding Sefako Makgatho Health Sciences University (SMU) study materials a breeze! 
+                <br/><br/>
+                Please keep in mind that <strong>we do not own, create, or hold any copyright</strong> to the notes, past papers, textbooks, or slides linked on this platform. All educational materials belong strictly to their respective authors, lecturers, and the university. We are simply here to help organize them so we can all study a little smarter. Share responsibly, ace those exams, and be kind! 💖
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
