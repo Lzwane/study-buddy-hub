@@ -10,13 +10,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const resourcesData = [
-  { name: "MBChB", link: "https://drive.google.com/drive/folders/1iX_TdhbW-nbhjw_ZgJDW6eNRKxYniuz1?usp=drive_link" },
-  { name: "Bachelor of Science", link: "https://drive.google.com/drive/folders/1piwQRSm7GYppj8qpfccmhYKCYzqvQbGV?usp=drive_link" },
-  { name: "Bachelor of Science ECP 1 - 2", link: "https://drive.google.com/drive/folders/1hOQ3Ue4-tgfJFE0V6bQi99MMclrURlGT?usp=drive_link" },
+  { name: "MBChB", link: "https://drive.google.com/drive/folders/1zAZdXFCbv0Fjdkj2_2Yh7xWcXU_wof7Z?usp=drive_link" },
+  { name: "Bachelor of Science", link: "https://drive.google.com/drive/folders/1tlZ3G6aGEIKfu6ptgRtAXt4GqUOiu9wE?usp=drive_link" },
   { name: "BSc Dietetics", link: "https://drive.google.com/drive/folders/1ppz8BHHsphtH0tkTRsOrmtQQz35BkYP-?usp=drive_link" },
-  { name: "Bachelor of Nursing", link: "https://drive.google.com/drive/folders/1_nWDD039UDpUAgcNRqxOgz8CPCumpbZO?usp=drive_link" },
-  { name: "Bachelor of Occupational Therapy", link: "https://drive.google.com/drive/folders/1WxQtqOvaDCEBoaN4ArUBetoasdQ3aVuS?usp=drive_link" },
-  { name: "Bachelor of Science in Physiotherapy", link: "https://drive.google.com/drive/folders/171GU_0lyxGigp68K6EvXFX0LnZ8VCTeS?usp=drive_link" }
+  { name: "Bachelor of Nursing", link: "https://drive.google.com/drive/folders/1pecJmOjvPRGq8T7qI_yIh3bXpWKur1ZX?usp=drive_link" },
+  { name: "Bachelor of Occupational Therapy", link: "https://drive.google.com/drive/folders/1nayZvmR_Njc9YC6SOW3gr4yetKqKlLIh?usp=drive_link" },
+  { name: "Bachelor of Science in Physiotherapy", link: "https://drive.google.com/drive/folders/170f6er6BK46_5Xr2d0ZVLHgR402gXqRk?usp=drive_link" }
 ];
 
 const Index = () => {
